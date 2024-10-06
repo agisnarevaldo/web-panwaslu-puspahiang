@@ -11,9 +11,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "#E62129",
+        secondary: "#DAB96B",
       },
     },
   },
+  darkMode: "class",
   plugins: [],
 };
 export default config;
