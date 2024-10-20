@@ -1,4 +1,4 @@
-const Header = ({title, description, classname}: { title: string, description: string, classname?: string }) => {
+const Header = ({title, description, classname}: { title: string, description?: string, classname?: string }) => {
     return (
         <header className={`${classname}`}>
             <span className="h-[4px] w-14 block bg-secondary mb-4 rounded"></span>
