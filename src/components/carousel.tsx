@@ -3,7 +3,6 @@
 import {Icon} from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import Link from "next/link";
 import Button from "@/components/ui/buttonPrimary";
 
 type NavigateProps = {
