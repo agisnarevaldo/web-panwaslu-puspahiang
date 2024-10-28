@@ -53,7 +53,7 @@ export default function Page() {
 
               <CardProfile
                   position={"Ketua"}
-                  image={"/person.png"}
+                  image={"/p2.jpeg"}
                   name={"Agus Tarwana"}
                   period={"2020-2025"}
                   address={"Jl. Raya Puspahiang No. 123"}
