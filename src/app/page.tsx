@@ -18,6 +18,7 @@ export default function Home() {
             >
                 <div className="flex flex-wrap justify-between">
                     <CardBerita
+                        classname="flex-col"
                         title={"Pemilu 2024"}
                         image={"/bawaslu.png"}
                         date={"2024-08-08"}
@@ -26,6 +27,7 @@ export default function Home() {
                         href={"/berita/pemilu-2024"}
                     />
                     <CardBerita
+                        classname="flex-col"
                         title={"Pemilu 2024"}
                         image={"/bawaslu.png"}
                         date={"2024-08-08"}
@@ -34,6 +36,7 @@ export default function Home() {
                         href={"/berita/pemilu-2024"}
                     />
                     <CardBerita
+                        classname="flex-col"
                         title={"Pemilu 2024"}
                         image={"/bawaslu.png"}
                         date={"2024-08-08"}
