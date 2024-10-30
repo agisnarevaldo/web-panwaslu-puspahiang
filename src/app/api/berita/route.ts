@@ -28,6 +28,36 @@ export async function GET() {
     }
 }
 
+// create slug must be unique
+async function createSlug(title: string) {
+    let slug = title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    let i = 1;
+    let exist = true;
+    while (exist) {
+        const checkSlug = await prisma.berita.findFirst({
+            where: {
+                slug: slug
+            }
+        });
+        if (checkSlug) {
+            slug = `${slug}-${i}`;
+            i++;
+        } else {
+            exist = false;
+        }
+    }
+    return slug;
+}
+// function createSlug(title: string) {
+//     return title
+//         .toLowerCase()
+//         .replace(/[^a-z0-9]+/g, '-')
+//         .replace(/^-+|-+$/g, '');
+// }
+
 export async function POST(req: NextRequest) {
     const formData = await req.formData();
 
@@ -36,6 +66,7 @@ export async function POST(req: NextRequest) {
     const gambar = formData.get("gambar") as File || null;
     const author = formData.get("author") as string || "";
     const tglDibuat = formData.get("tglDibuat");
+    const slug = await createSlug(judul);
 
     const buffer = Buffer.from(await gambar.arrayBuffer());
     const relativeUploadDir = `/uploads/berita/${new Date(Date.now()).toLocaleDateString("id-ID", {
@@ -82,6 +113,7 @@ export async function POST(req: NextRequest) {
                 gambar: fileUrl,
                 author: author,
                 tglDibuat: new Date(tglDibuat as string),
+                slug: slug,
             }
         });
 
