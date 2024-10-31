@@ -1,5 +1,5 @@
 import Section from "@/components/layout/section";
-import Card from "@/components/ui/card";
+import CardOld from "@/components/ui/cardOld";
 import Header from "@/components/layout/header";
 import Image from "next/image";
 import CardProfile from "@/components/layout/cardProfile";
@@ -9,12 +9,12 @@ export default function Page() {
     <main className="">
       <Section title="Profil" description="Profil Panwaslu Kecamatan Puspahiang" classname="py-0">
           <div className="flex flex-col pt-8 gap-8">
-              <Card title="Visi" classname="flex-col">
+              <CardOld title="Visi" classname="flex-col">
                     <p>
                         Terwujudnya panwaslu kecamatan puspahiang sebagai pengawas atau pengawal demokrasi terpercaya dalam pemilu atau pemilihan yang demokratis, bermartabat, dan berkualitas
                     </p>
-              </Card>
-              <Card title="Misi" classname="flex-col">
+              </CardOld>
+              <CardOld title="Misi" classname="flex-col">
                   <ol className="list-decimal">
                       <li>Membangun Aparatur dan kelembagaan pengawas pemilu yang kuat, mandiri dan solid;</li>
                       <li>Mengembangkan pola dan metode pengawasan yang efektif dan efisien;</li>
@@ -23,7 +23,7 @@ export default function Page() {
                       <li>Meningkatkan kepercayaan publik atas kualitas kinerja pengawasan berupa pencegahan dan penindakan, serta penyelesaian sengketa secara cepat, akurat dan transparan;</li>
                       <li>Membangun bawaslu sebagai pusat pembelajaran pengawasan pemilu baik bagi pihak dari dalam negeri maupun pihak dari luar negeri</li>
                   </ol>
-              </Card>
+              </CardOld>
           </div>
 
           <div className="flex flex-col my-8 gap-8">
