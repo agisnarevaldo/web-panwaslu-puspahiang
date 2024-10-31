@@ -1,4 +1,4 @@
-import {Users, ChevronUp, Home, Newspaper, Search, Settings, User2} from "lucide-react"
+import {Users, Home, Newspaper} from "lucide-react"
 
 import {
     Sidebar,
@@ -10,7 +10,6 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import DialogExit from "@/components/admin/dialogExit";
 

@@ -24,3 +24,13 @@ model Berita {
 
   @@map("berita")
 }
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique @db.VarChar(255)
+  password String   @db.VarChar(255)
+  nama     String   @db.VarChar(255)
+  avatar   String?  @db.VarChar(255)
+
+  @@map("user")
+}

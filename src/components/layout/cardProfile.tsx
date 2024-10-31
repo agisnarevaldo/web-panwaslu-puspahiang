@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Logo from "@/components/logo";
-import Card from "@/components/ui/card";
+import CardOld from "@/components/ui/cardOld";
 
 interface CardProfileProps {
     position: string;
@@ -13,7 +13,7 @@ interface CardProfileProps {
 
 const CardProfile = ({position, image, name, period, address, phone}: CardProfileProps) => {
     return (
-        <Card title={position} classname="flex-col w-max rounded-xl">
+        <CardOld title={position} classname="flex-col w-max rounded-xl">
             <div className="flex gap-4">
                 <Image
                     src={image}
@@ -36,7 +36,7 @@ const CardProfile = ({position, image, name, period, address, phone}: CardProfil
                     </div>
                 </div>
             </div>
-        </Card>
+        </CardOld>
     )
 }
 

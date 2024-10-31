@@ -1,3 +1,5 @@
+'use client';
+
 import {
     Dialog,
     DialogClose,
@@ -9,10 +11,21 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {LogOutIcon} from "lucide-react";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
+import {logout} from "@/app/actions/logout";
 
 export default function DialogExit() {
+    const [open, setOpen] = useState(false);
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        await logout();
+        setOpen(false);
+        router.push('/');
+    }
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className="w-full" asChild>
                 <Button>
                     Keluar
@@ -26,11 +39,18 @@ export default function DialogExit() {
                 </DialogHeader>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
+                        {/* cancel button */}
                         <Button type="button" variant="secondary">
                             Batal
                         </Button>
                     </DialogClose>
-                    <Button type="button" variant="destructive">
+
+                    {/* confirm button */}
+                    <Button
+                        type="button"
+                        variant="destructive"
+                        onClick={handleLogout}
+                    >
                         Lanjutkan
                     </Button>
                 </DialogFooter>
