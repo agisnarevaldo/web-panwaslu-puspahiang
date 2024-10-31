@@ -8,7 +8,7 @@ export default function Section({title, description, classname, children}: {
     children: React.ReactNode
 }) {
     return (
-        <section className={`${classname} container my-10 mx-auto px-4 sm:px-6 lg:px-8 py-8`}>
+        <section className={`${classname} container my-10 mx-auto px-4 sm:px-6 lg:px-6 py-8`}>
             <Header title={title} description={description}/>
             {children}
         </section>
