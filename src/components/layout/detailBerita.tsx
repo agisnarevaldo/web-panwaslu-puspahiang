@@ -20,7 +20,7 @@ export default function DetailBerita({ title, content, date, author, image }: Be
 
     return (
         <div className="max-w-screen-md mx-auto">
-            <h1 className="text-4xl text-center font-bold mt-4">{titleCapitalized}</h1>
+            <h1 className="text-4xl font-bold mt-4">{titleCapitalized}</h1>
             <span className="h-[1px] w-full bg-secondary block mb-4"></span>
             <p className="text-neutral-600">{author} - {formattedDate}</p>
             <div className="h-72 w-full bg-blue-500 overflow-hidden rounded-lg flex-shrink-0">
