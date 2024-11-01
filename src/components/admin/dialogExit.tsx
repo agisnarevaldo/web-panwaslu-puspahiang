@@ -3,7 +3,7 @@
 import {
     Dialog,
     DialogClose,
-    DialogContent,
+    DialogContent, DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -14,6 +14,7 @@ import {LogOutIcon} from "lucide-react";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {logout} from "@/app/actions/logout";
+import Logo from "@/components/logo";
 
 export default function DialogExit() {
     const [open, setOpen] = useState(false);
@@ -33,11 +34,14 @@ export default function DialogExit() {
                 </Button>
             </DialogTrigger>
 
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="max-w-md">
                 <DialogHeader>
                     <DialogTitle>Keluar Dari Aplikasi?</DialogTitle>
                 </DialogHeader>
-                <DialogFooter className="sm:justify-start">
+                <DialogDescription className="flex justify-center my-4">
+                    <Logo/>
+                </DialogDescription>
+                <DialogFooter className="items-center">
                     <DialogClose asChild>
                         {/* cancel button */}
                         <Button type="button" variant="secondary">
