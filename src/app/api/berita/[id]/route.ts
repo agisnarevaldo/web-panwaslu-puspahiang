@@ -1,8 +1,9 @@
 import {PrismaClient} from "@prisma/client";
 import {NextRequest, NextResponse} from "next/server";
 import { join } from "path";
-import {mkdir, stat, writeFile} from "node:fs/promises";
+import {mkdir, stat, unlink, writeFile} from "node:fs/promises";
 import mime from "mime";
+import path from "node:path";
 
 const prisma = new PrismaClient();
 
@@ -108,7 +109,38 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const berita = await prisma.berita.delete({
+        // First, fetch the news item to get the image path
+        const berita = await prisma.berita.findUnique({
+            where: {
+                id: parseInt(params.id)
+            }
+        });
+
+        if (!berita) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Berita tidak ditemukan",
+                },
+                {
+                    status: 404,
+                }
+            );
+        }
+
+        // If there's an image associated with the news item, delete it
+        if (berita.gambar) {
+            const imagePath = path.join(process.cwd(), "public", berita.gambar);
+            try {
+                await unlink(imagePath);
+            } catch (error) {
+                console.error("Error deleting image file:", error);
+                // We'll continue with deleting the database entry even if image deletion fails
+            }
+        }
+
+        // Now delete the news item from the database
+        const deletedBerita = await prisma.berita.delete({
             where: {
                 id: parseInt(params.id)
             }
@@ -118,14 +150,22 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
             {
                 success: true,
                 message: "Berhasil menghapus data berita",
-                data: berita
+                data: deletedBerita
             },
             {
                 status: 200,
             }
-        )
+        );
     } catch (error) {
         console.error(error);
-        return new Response(JSON.stringify({ message: "Internal Server Error" }), { status: 500 });
+        return NextResponse.json(
+            {
+                success: false,
+                message: "Internal Server Error"
+            },
+            {
+                status: 500
+            }
+        );
     }
 }
