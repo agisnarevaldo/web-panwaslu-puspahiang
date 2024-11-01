@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import "../globals.css";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import {AppSidebar} from "@/components/admin/appSidebar";
+import {CardDescription, CardTitle} from "@/components/ui/card";
+import {cookies} from "next/headers";
+import {redirect} from "next/navigation";
 
 const geistSans = localFont({
     src: "../fonts/GeistVF.woff",
@@ -25,6 +28,19 @@ export default function RootLayout({
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const userCookie = cookies().get('user')
+
+    if (!userCookie) {
+        redirect('/')
+    }
+
+    let user
+    try {
+        user = JSON.parse(userCookie.value)
+    } catch {
+        redirect('/')
+    }
+
     return (
         <html lang="en">
         <body
@@ -32,8 +48,16 @@ export default function RootLayout({
         >
             <SidebarProvider>
                 <AppSidebar/>
-                <main>
-                    <SidebarTrigger />
+                <main className="w-full">
+                    <div className="flex border-b pr-1">
+                        <SidebarTrigger />
+                        <CardTitle className="text-center text-md font-semibold mx-auto">Dashboard</CardTitle>
+                        <CardDescription>
+                            {user && (
+                                <>{user.nama}</>
+                            )}
+                        </CardDescription>
+                    </div>
                     {children}
                 </main>
             </SidebarProvider>
