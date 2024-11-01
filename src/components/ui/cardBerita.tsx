@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import formatDate from "@/lib/formatDate";
 
 interface CardBeritaProps {
     title: string;
@@ -12,11 +13,6 @@ interface CardBeritaProps {
 }
 
 export default function CardBerita( {title, image, date, author, href, description, classname}: CardBeritaProps ) {
-    const formattedDate = new Date(date).toLocaleDateString('id-ID', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
     return (
         <Link
             href={href}
@@ -32,7 +28,7 @@ export default function CardBerita( {title, image, date, author, href, descripti
                 />
             </div>
             <div className="flex-1 mt-2">
-                <p className="text-sm text-gray-500">{formattedDate} - {author}</p>
+                <p className="text-sm text-gray-500">{formatDate(date)} - {author}</p>
                 <h2 className="text-lg font-bold -tracking-tight line-clamp-1">{title}</h2>
                 <p className="text-gray-600 line-clamp-3 text-sm">{description}</p>
             </div>
