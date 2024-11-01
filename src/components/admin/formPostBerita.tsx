@@ -60,6 +60,12 @@ export default function FormPostBerita() {
                 throw new Error('Failed to post news')
             }
 
+            // Clear the form
+            setJudul('')
+            setIsi('')
+            setGambar(null)
+            setAuthor('')
+
             router.push('/admin/berita') // Redirect to news list page
         } catch (error: Error | unknown) {
             setError(`Failed to post news: ${error instanceof Error ? error.message : 'Unknown error'}`)
