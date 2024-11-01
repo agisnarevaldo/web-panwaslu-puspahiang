@@ -22,7 +22,7 @@ const items = [
     },
     {
         title: "Kelola Berita",
-        url: "#",
+        url: "/admin/berita",
         icon: Newspaper,
     },
     {
