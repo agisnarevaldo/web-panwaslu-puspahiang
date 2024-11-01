@@ -9,7 +9,20 @@ const prisma = new PrismaClient();
 export async function GET() {
     try {
         // get all data berita
-        const berita = await prisma.berita.findMany();
+        const berita = await prisma.berita.findMany({
+            select: {
+                id: true,
+                judul: true,
+                isi: true,
+                author: true,
+                tglDibuat: true,
+                gambar: true,
+                slug: true,
+            },
+            orderBy: {
+                tglDibuat: "desc",
+            }
+        });
 
         // return response JSON
         return NextResponse.json(
