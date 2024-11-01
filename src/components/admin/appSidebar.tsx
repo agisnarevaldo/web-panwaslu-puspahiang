@@ -1,4 +1,4 @@
-import {Users, Home, Newspaper} from "lucide-react"
+import {Users, Home, Newspaper, ChevronDown, ChevronRight} from "lucide-react"
 
 import {
     Sidebar,
@@ -8,38 +8,39 @@ import {
     SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem,
+    SidebarMenuItem, SidebarMenuSub, SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import Image from "next/image";
 import DialogExit from "@/components/admin/dialogExit";
+import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@radix-ui/react-collapsible";
 
-// Menu items.
-const items = [
+
+const menuItems = [
+    { icon: Home, label: 'Home', href: '/admin' },
     {
-        title: "Home",
-        url: "#",
-        icon: Home,
-    },
-    {
-        title: "Kelola Berita",
-        url: "/admin/berita",
         icon: Newspaper,
+        label: 'Berita',
+        submenu: [
+            { label: 'Buat Berita', href: '/admin/berita/baru' },
+            { label: 'Data Berita', href: '/admin/berita/' },
+        ]
     },
     {
-        title: "Kelola Pendaftaran",
-        url: "#",
         icon: Users,
+        label: 'Pengumuman',
+        submenu: [
+            { label: 'Buat Pengumuman', href: '/admin/pengumuman/baru' },
+            { label: 'Data Pengumuman', href: '/admin/pengumuman' },
+        ]
     },
-    // {
-    //     title: "Search",
-    //     url: "#",
-    //     icon: Search,
-    // },
-    // {
-    //     title: "Settings",
-    //     url: "#",
-    //     icon: Settings,
-    // },
+    {
+        icon: Users,
+        label: 'Pendafataran',
+        submenu: [
+            { label: 'Buat Pendaftaran', href: '/admin/pendaftaran/baru' },
+            { label: 'Data Pendaftaran', href: '/admin/pendagtaran' },
+        ]
+    },
 ]
 
 export function AppSidebar() {
@@ -63,14 +64,38 @@ export function AppSidebar() {
                     </SidebarGroupLabel>
                     <SidebarGroupContent className="mt-4">
                         <SidebarMenu>
-                            {items.map((item) => (
-                                <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
-                                        <a href={item.url}>
-                                            <item.icon/>
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
+                            {menuItems.map((item, index) => (
+                                <SidebarMenuItem key={index}>
+                                    {item.submenu ? (
+                                        <Collapsible defaultOpen className="group/collapsible">
+                                            <CollapsibleTrigger asChild>
+                                                <SidebarMenuButton>
+                                                    <item.icon className="mr-2 h-4 w-4" />
+                                                    {item.label}
+                                                    <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                                                </SidebarMenuButton>
+                                            </CollapsibleTrigger>
+                                            <CollapsibleContent>
+                                                <SidebarMenuSub>
+                                                    {item.submenu.map((subItem, subIndex) => (
+                                                        <SidebarMenuSubItem key={subIndex}>
+                                                                <a href={subItem.href} className="flex items-center">
+                                                                    <ChevronRight className="mr-2 h-3 w-3" />
+                                                                    {subItem.label}
+                                                                </a>
+                                                        </SidebarMenuSubItem>
+                                                    ))}
+                                                </SidebarMenuSub>
+                                            </CollapsibleContent>
+                                        </Collapsible>
+                                    ) : (
+                                        <SidebarMenuButton asChild>
+                                            <a href={item.href}>
+                                                <item.icon className="mr-2 h-4 w-4" />
+                                                {item.label}
+                                            </a>
+                                        </SidebarMenuButton>
+                                    )}
                                 </SidebarMenuItem>
                             ))}
                         </SidebarMenu>
