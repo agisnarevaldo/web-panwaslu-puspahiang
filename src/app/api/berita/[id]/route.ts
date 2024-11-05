@@ -7,16 +7,40 @@ import path from "node:path";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        // get data berita by id
+        const id = parseInt(params.id);
+
+        if (isNaN(id)) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Invalid ID format",
+                },
+                {
+                    status: 400,
+                }
+            );
+        }
+
         const berita = await prisma.berita.findUnique({
             where: {
-                id: parseInt(params.id)
+                id: id
             }
         });
 
-        // return response JSON
+        if (!berita) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Berita tidak ditemukan",
+                },
+                {
+                    status: 404,
+                }
+            );
+        }
+
         return NextResponse.json(
             {
                 success: true,
@@ -26,10 +50,18 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
             {
                 status: 200,
             }
-        )
+        );
     } catch (error) {
-        console.error(error);
-        return new Response(JSON.stringify({message: "Internal Server Error"}), {status: 500});
+        console.error("Error fetching berita:", error);
+        return NextResponse.json(
+            {
+                success: false,
+                message: "Internal Server Error"
+            },
+            {
+                status: 500
+            }
+        );
     }
 }
 
