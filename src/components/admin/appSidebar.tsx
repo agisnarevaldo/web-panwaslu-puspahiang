@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image";
 import DialogExit from "@/components/admin/dialogExit";
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@radix-ui/react-collapsible";
+import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
 
 
 const menuItems = [
