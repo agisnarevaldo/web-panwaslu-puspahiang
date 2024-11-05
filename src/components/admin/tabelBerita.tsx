@@ -36,6 +36,7 @@ interface NewsItem {
 export default function TabelBerita() {
     const [news, setNews] = useState<NewsItem[]>([])
     const router = useRouter()
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
         fetchNews()
@@ -57,7 +58,13 @@ export default function TabelBerita() {
     }
 
     const handleEdit = (id: string) => {
-        router.push(`/news/edit/${id}`)
+        console.log(`Attempting to edit news with id: ${id}`)
+        try {
+            router.push(`/admin/berita/edit/${id}`)
+        } catch (error) {
+            console.error('Error navigating to edit page:', error)
+            setError('Failed to navigate to edit page. Please try again.')
+        }
     }
 
     const handleDelete = async (id: string) => {
