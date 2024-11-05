@@ -26,11 +26,32 @@ model Berita {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  username String   @unique @db.VarChar(255)
-  password String   @db.VarChar(255)
-  nama     String   @db.VarChar(255)
-  avatar   String?  @db.VarChar(255)
+  id       Int     @id @default(autoincrement())
+  username String  @unique @db.VarChar(255)
+  password String  @db.VarChar(255)
+  nama     String  @db.VarChar(255)
+  avatar   String? @db.VarChar(255)
 
   @@map("user")
+}
+
+model PPTPS {
+  id                 Int       @id @default(autoincrement())
+  namaLengkap        String    @db.VarChar(255)
+  nik                String    @unique @db.VarChar(30)
+  tempatLahir        String?   @db.VarChar(100)
+  TanggaLahir        DateTime? @db.DateTime
+  jenisKelamin       String?   @db.VarChar(10)
+  alamat             String?   @db.Text
+  pendidikanTerakhir String?   @db.VarChar(100)
+  noTelp             String?   @db.VarChar(20)
+  email              String?   @unique @db.VarChar(100)
+  pekerjaan          String?   @db.VarChar(100)
+  suratPendaftaran   String?   @db.VarChar(255) //file
+  ktp                String?   @db.VarChar(255) //file
+  ijazah             String?   @db.VarChar(255) //file
+  daftarRiwayatHidup String?   @db.VarChar(255) //file
+  suratPernyataan    String?   @db.VarChar(255) //file
+
+  @@map("pptps")
 }
