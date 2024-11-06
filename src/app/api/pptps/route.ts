@@ -8,7 +8,16 @@ const prisma = new PrismaClient();
 export async function GET() {
     try {
         // get all data pptps
-        const pptps = await prisma.pPTPS.findMany({})
+        const pptps = await prisma.pPTPS.findMany({
+            select: {
+                id: true,
+                namaLengkap: true,
+                nik: true,
+                tempatLahir: true,
+                TanggaLahir: true,
+                status: true,
+            }
+        });
 
         // return response JSON
         return NextResponse.json(

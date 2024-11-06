@@ -52,3 +52,31 @@ export async function DELETE(req: NextRequest, {params}: {params: {id: string}})
         return new Response(JSON.stringify({message: "Internal Server Error"}), {status: 500});
     }
 }
+
+export async function PATCH(
+    req: NextRequest,
+    { params }: { params: { id: string } }
+) {
+    try {
+        const id = parseInt(params.id)
+        const { status } = await req.json()
+        const updatedPTPS = await prisma.pPTPS.update({
+            where: { id },
+            data: { status }
+        })
+
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Berhasil mengupdate status pptps",
+                data: updatedPTPS
+            },
+            {
+                status: 200,
+            }
+        )
+    } catch (error) {
+        console.error(error);
+        return new Response(JSON.stringify({message: "Internal Server Error"}), {status: 500});
+    }
+}
