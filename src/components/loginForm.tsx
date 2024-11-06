@@ -10,6 +10,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import {RotateCcw} from "lucide-react";
 import {login} from "@/app/actions/login";
+import Link from "next/link";
+import {Icon} from "@iconify/react/dist/iconify.js";
 
 const initialState = {
     error: null,
@@ -46,7 +48,12 @@ export default function LoginForm() {
     return (
         <Card className="w-[350px]">
             <CardHeader>
-                <CardTitle>Login</CardTitle>
+                <Link href="/" className="text-red-600 text-xl">
+                    <Icon icon="ion:arrow-back" />
+                </Link>
+                <CardTitle className="text-center">
+                    Login
+                </CardTitle>
                 <CardDescription>Enter your credentials to access your account.</CardDescription>
             </CardHeader>
             <form action={formAction}>
