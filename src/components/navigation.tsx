@@ -1,4 +1,3 @@
-import ButtonMode from "./btnMode";
 import Logo from "./logo";
 import NavLink from "./navLink";
 
@@ -21,7 +20,11 @@ export default function Navbar() {
           text="Pengumuman"
         />
 
-        <ButtonMode />
+        <NavLink
+            href="/login"
+            icon="carbon:user-avatar-filled"
+            text="Login"
+        />
       </div>
     </nav>
   );
