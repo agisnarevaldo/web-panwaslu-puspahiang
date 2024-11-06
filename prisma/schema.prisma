@@ -52,6 +52,7 @@ model PPTPS {
   ijazah             String?   @db.VarChar(255) //file
   daftarRiwayatHidup String?   @db.VarChar(255) //file
   suratPernyataan    String?   @db.VarChar(255) //file
+  status             String?   @db.VarChar(20) @default("PENDING")
 
   @@map("pptps")
 }

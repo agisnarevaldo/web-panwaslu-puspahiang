@@ -35,6 +35,8 @@ export async function POST(req: NextRequest) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const data: Record<string, any> = {};
 
+        data.status = 'PENDING';
+
         // @ts-expect-error formData has no entries
         for (const [key, value] of formData.entries()) {
             if (fileFields.includes(key) && value instanceof Blob) {
@@ -71,6 +73,7 @@ export async function POST(req: NextRequest) {
                 ijazah: data.ijazah,
                 daftarRiwayatHidup: data.daftarRiwayatHidup,
                 suratPernyataan: data.suratPernyataan,
+                status: data.status,
             },
         });
 
