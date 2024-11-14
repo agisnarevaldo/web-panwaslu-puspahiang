@@ -41,7 +41,7 @@ export default function Page() {
               />
           </div>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap justify-center gap-8">
               <CardProfile
                   position={"Ketua"}
                   image={"/person.png"}
@@ -53,7 +53,7 @@ export default function Page() {
 
               <CardProfile
                   position={"Ketua"}
-                  image={"/p2.jpeg"}
+                  image={"/person.png"}
                   name={"Agus Tarwana"}
                   period={"2020-2025"}
                   address={"Jl. Raya Puspahiang No. 123"}
@@ -65,7 +65,7 @@ export default function Page() {
                   image={"/person.png"}
                   name={"Agus Tarwana"}
                   period={"2020-2025"}
-                  address={"Jl. Raya Puspahiang No. 123"}
+                  address={"Jl. Raya Puspahiang No. 123asdasdasd"}
                   phone={"081234567890"}
               />
 
