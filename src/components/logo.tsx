@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function Logo() {
+export default function Logo({ className }: { className?: string }) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className={`${className} flex gap-2 items-center`}>
       <Image src="/icon.png" alt="logo" width={60} height={60} />
       <div>
         <p className="text-[32px] leading-8 font-bold tracking-wider">
