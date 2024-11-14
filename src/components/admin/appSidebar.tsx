@@ -38,7 +38,7 @@ const menuItems = [
         label: 'Pendafataran',
         submenu: [
             { label: 'Buat Pendaftaran', href: '/admin/pendaftaran/baru' },
-            { label: 'Data Pendaftaran', href: '/admin/pendagtaran' },
+            { label: 'Data Pendaftaran', href: '/admin/data-ptps' },
         ]
     },
 ]
