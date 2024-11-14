@@ -1,9 +1,9 @@
-import SectionTopBerita from "@/components/layout/sectionTopBerita";
+import SectionListBerita from "@/components/layout/sectionListBerita";
 
 export default function Page() {
   return (
     <main>
-        <SectionTopBerita/>
+        <SectionListBerita/>
     </main>
   );
 }
