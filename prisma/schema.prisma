@@ -56,3 +56,15 @@ model PPTPS {
 
   @@map("pptps")
 }
+
+model Pengumuman {
+  id Int @id @default(autoincrement())
+  judul String @db.VarChar(255)
+  isi String @db.Text
+  tglDibuat DateTime @default(now())
+  author String @db.VarChar(255)
+  slug String @unique @db.VarChar(255)
+  lampiran String @db.VarChar(255)
+
+  @@map("pengumuman")
+}
