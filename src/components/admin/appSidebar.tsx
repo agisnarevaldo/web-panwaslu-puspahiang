@@ -1,4 +1,4 @@
-import {Users, Home, Newspaper, ChevronDown, ChevronRight} from "lucide-react"
+import {Users, Home, Newspaper, ChevronDown, ChevronRight, Bell, List} from "lucide-react"
 
 import {
     Sidebar,
@@ -26,7 +26,7 @@ const menuItems = [
         ]
     },
     {
-        icon: Users,
+        icon: Bell,
         label: 'Pengumuman',
         submenu: [
             { label: 'Buat Pengumuman', href: '/admin/pengumuman/baru' },
@@ -34,13 +34,21 @@ const menuItems = [
         ]
     },
     {
-        icon: Users,
-        label: 'Pendafataran',
+        icon: List,
+        label: 'Pendaftaran PTPS',
         submenu: [
             { label: 'Buat Pendaftaran', href: '/admin/pendaftaran/baru' },
             { label: 'Data Pendaftaran', href: '/admin/data-ptps' },
         ]
     },
+    {
+        icon: Users,
+        label: 'Profil',
+        submenu: [
+            { label: 'Profil Anggota', href: '/admin/pengguna/baru' },
+            { label: 'Profil Admin', href: '/admin/pengguna' },
+        ]
+    }
 ]
 
 export function AppSidebar() {
