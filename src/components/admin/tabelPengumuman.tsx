@@ -2,7 +2,6 @@
 
 import {useEffect, useState} from "react";
 // import {useRouter} from "next/navigation";
-import {Skeleton} from "@/components/ui/skeleton";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
@@ -15,6 +14,7 @@ import {
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import formatDate from "@/lib/formatDate";
+import SkeletonTable from "@/components/ui/SkeletonTable";
 
 interface Pengumuman {
     id: number;
@@ -70,23 +70,12 @@ export default function TabelPengumuman() {
         }
     }
 
-    if (loading) {
-        return (
-            <div className="flex flex-col gap-4">
-                <div className="space-y-4">
-                    <Skeleton className="h-4 w-1/2" />
-                    <Skeleton className="h-4 w-1/3" />
-                </div>
-            </div>
-        )
-    }
-
     if (error) {
         return <div className="text-red">{error}</div>
     }
 
     return (
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto py-4">
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -97,53 +86,62 @@ export default function TabelPengumuman() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {pengumuman.map((item: Pengumuman) => (
-                        <TableRow key={item.id}>
-                            <TableCell>{item.judul}</TableCell>
-                            <TableCell>{item.author}</TableCell>
-                            <TableCell>{formatDate(item.tglDibuat)}</TableCell>
-                            <TableCell>
-                            <div className="flex space-x-2">
-                                <Button variant="outline" size="sm" asChild>
-                                    <Link
-                                        href={`../pengumuman/${item.slug}`}
-                                        target="_blank"
-                                    >
-                                        <Eye className="h-4 w-4"/>
-                                    </Link>
-                                </Button>
-                                <Button variant="outline" size="sm" asChild>
-                                    <Link href={`./pengumuman/edit/${item.id}`}>
-                                        <Pencil className="h-4 w-4"/>
-                                    </Link>
-                                </Button>
-                                <AlertDialog>
-                                    <AlertDialogTrigger asChild>
-                                        <Button variant="outline" size="sm">
-                                            <Trash2 className="h-4 w-4"/>
+                    {loading ? (
+                        <SkeletonTable
+                            columns={4}
+                            rows={4}
+                            cellWidths={['100%', '20%', '20%', '20%']}
+                        />
+                    ) : (
+                        pengumuman.map((item: Pengumuman) => (
+                            <TableRow key={item.id}>
+                                <TableCell>{item.judul}</TableCell>
+                                <TableCell>{item.author}</TableCell>
+                                <TableCell>{formatDate(item.tglDibuat)}</TableCell>
+                                <TableCell>
+                                    <div className="flex space-x-2">
+                                        <Button variant="outline" size="sm" asChild>
+                                            <Link
+                                                href={`../pengumuman/${item.slug}`}
+                                                target="_blank"
+                                            >
+                                                <Eye className="h-4 w-4"/>
+                                            </Link>
                                         </Button>
-                                    </AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle>Apa anda benar-benar yakin?</AlertDialogTitle>
-                                            <AlertDialogDescription>
-                                                Tindakan ini tidak dapat dibatalkan. Tindakan ini akan secara permanen menghapus
-                                                pengumuman
-                                                dan menghapus data dari server kami.
-                                            </AlertDialogDescription>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                            <AlertDialogCancel>Batal</AlertDialogCancel>
-                                            <AlertDialogAction onClick={() => handleDelete(item.id)}>
-                                                Hapus
-                                            </AlertDialogAction>
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
-                            </div>
-                        </TableCell>
-                        </TableRow>
-                        ))}
+                                        <Button variant="outline" size="sm" asChild>
+                                            <Link href={`./pengumuman/edit/${item.id}`}>
+                                                <Pencil className="h-4 w-4"/>
+                                            </Link>
+                                        </Button>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                                <Button variant="outline" size="sm">
+                                                    <Trash2 className="h-4 w-4"/>
+                                                </Button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Apa anda benar-benar yakin?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        Tindakan ini tidak dapat dibatalkan. Tindakan ini akan secara
+                                                        permanen menghapus
+                                                        pengumuman
+                                                        dan menghapus data dari server kami.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Batal</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={() => handleDelete(item.id)}>
+                                                        Hapus
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    )}
                 </TableBody>
             </Table>
         </div>
