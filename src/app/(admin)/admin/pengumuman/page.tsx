@@ -6,9 +6,9 @@ export default function Page() {
     return (
         <div className="container mx-auto p-4">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Pengumuman</h1>
+                <h1 className="text-2xl font-bold">Data Pengumuman</h1>
                 <Button asChild>
-                    <Link href="./pengumuman/baru">Buat Pengumuman</Link>
+                    <Link href="./pengumuman/baru">Tambah Data</Link>
                 </Button>
             </div>
             <TabelPengumuman/>
