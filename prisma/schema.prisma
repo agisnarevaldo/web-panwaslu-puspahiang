@@ -52,19 +52,34 @@ model PPTPS {
   ijazah             String?   @db.VarChar(255) //file
   daftarRiwayatHidup String?   @db.VarChar(255) //file
   suratPernyataan    String?   @db.VarChar(255) //file
-  status             String?   @db.VarChar(20) @default("PENDING")
+  status             String?   @default("PENDING") @db.VarChar(20)
 
   @@map("pptps")
 }
 
 model Pengumuman {
-  id Int @id @default(autoincrement())
-  judul String @db.VarChar(255)
-  isi String @db.Text
+  id        Int      @id @default(autoincrement())
+  judul     String   @db.VarChar(255)
+  isi       String   @db.Text
   tglDibuat DateTime @default(now())
-  author String @db.VarChar(255)
-  slug String @unique @db.VarChar(255)
-  lampiran String @db.VarChar(255)
+  author    String   @db.VarChar(255)
+  slug      String   @unique @db.VarChar(255)
+  lampiran  String   @db.VarChar(255)
 
   @@map("pengumuman")
+}
+
+model Anggota {
+  id      String  @id @default(uuid())
+  nama    String  @db.VarChar(255)
+  jabatan String  @db.VarChar(255)
+  periode String  @db.VarChar(255)
+  alamat  String  @db.Text
+  noTelp  String? @db.VarChar(20)
+  email   String? @unique @db.VarChar(100)
+  divisi  String? @db.VarChar(255)
+  status  String? @db.VarChar(255)
+  photo   String? @db.VarChar(255)
+
+  @@map("anggota")
 }
