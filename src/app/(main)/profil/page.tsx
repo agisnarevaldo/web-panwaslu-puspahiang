@@ -2,7 +2,7 @@ import Section from "@/components/layout/section";
 import CardOld from "@/components/ui/cardOld";
 import Header from "@/components/layout/header";
 import Image from "next/image";
-import CardProfile from "@/components/layout/cardProfile";
+import SectionAnggota from "@/components/layout/sectionAnggota";
 
 export default function Page() {
   return (
@@ -41,43 +41,7 @@ export default function Page() {
               />
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8">
-              <CardProfile
-                  position={"Ketua"}
-                  image={"/person.png"}
-                  name={"Agus Tarwana"}
-                  period={"2020-2025"}
-                  address={"Jl. Raya Puspahiang No. 123"}
-                  phone={"081234567890"}
-              />
-
-              <CardProfile
-                  position={"Ketua"}
-                  image={"/person.png"}
-                  name={"Agus Tarwana"}
-                  period={"2020-2025"}
-                  address={"Jl. Raya Puspahiang No. 123"}
-                  phone={"081234567890"}
-              />
-
-              <CardProfile
-                  position={"Ketua"}
-                  image={"/person.png"}
-                  name={"Agus Tarwana"}
-                  period={"2020-2025"}
-                  address={"Jl. Raya Puspahiang No. 123asdasdasd"}
-                  phone={"081234567890"}
-              />
-
-              <CardProfile
-                  position={"Ketua"}
-                  image={"/person.png"}
-                  name={"Agus Tarwana"}
-                  period={"2020-2025"}
-                  address={"Jl. Raya Puspahiang No. 123"}
-                  phone={"081234567890"}
-              />
-          </div>
+          <SectionAnggota />
       </Section>
     </main>
   );
