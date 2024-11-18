@@ -130,10 +130,9 @@ export default function TabelBerita() {
                                             </AlertDialogTrigger>
                                             <AlertDialogContent>
                                                 <AlertDialogHeader>
-                                                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                    <AlertDialogTitle>Apa anda benar-benar yakin?</AlertDialogTitle>
                                                     <AlertDialogDescription>
-                                                        This action cannot be undone. This will permanently delete the
-                                                        news article.
+                                                        Tindakan ini tidak dapat dibatalkan. Tindakan ini akan secara permanen menghapus data dari server kami.
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
