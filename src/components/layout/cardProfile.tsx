@@ -2,35 +2,33 @@ import Image from "next/image";
 import CardOld from "@/components/ui/cardOld";
 
 interface CardProfileProps {
-    position: string;
-    image: string;
-    name: string;
-    period: string;
-    address: string;
-    phone: string;
+    nama: string;
+    jabatan: string;
+    periode: string;
+    alamat: string;
+    email: string;
+    photo: string;
     classname?: string;
 }
 
-const CardProfile = ({position, image, name, period, address, phone, classname}: CardProfileProps) => {
+const CardProfile = ({nama, photo, jabatan, periode, alamat, email, classname}: CardProfileProps) => {
     return (
-        <CardOld title={position} classname={`${classname} flex-col w-2/5 rounded-xl`}>
+        <CardOld title={nama} classname={`${classname} flex-col rounded-xl`}>
             <div className="flex gap-4">
                 <div className="flex-initial">
-                    <Image
-                        src={image}
-                        alt={position}
-                        width={180}
-                        height={180}
-                        className="rounded-lg"
+                    <img
+                        src={photo}
+                        alt={nama}
+                        className="rounded-lg w-24"
                     />
                 </div>
                 <div className="flex-1 flex flex-col gap-2 justify-between items-end">
                     <div className="max-w-[300px]">
-                        <P>Nama: {name}</P>
-                        <P>Jabatan: {position}</P>
-                        <P>Periode: {period}</P>
-                        <P>Alamat: {address}</P>
-                        <P>No. Telp: {phone}</P>
+                        <P>{nama}</P>
+                        <P>{jabatan}</P>
+                        <P>{periode}</P>
+                        <P>{alamat}</P>
+                        <P>{email}</P>
                     </div>
                     <div className={`flex gap-2 items-center`}>
                         <Image src="/icon.png" alt="logo" width={50} height={50}/>
