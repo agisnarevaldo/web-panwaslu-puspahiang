@@ -45,8 +45,8 @@ const menuItems = [
         icon: Users,
         label: 'Profil',
         submenu: [
-            { label: 'Profil Anggota', href: '/admin/pengguna/baru' },
-            { label: 'Profil Admin', href: '/admin/pengguna' },
+            { label: 'Profil Anggota', href: '/admin/profil/anggota' },
+            { label: 'Profil Admin', href: '/admin/profil/user-admin' },
         ]
     }
 ]
