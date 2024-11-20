@@ -6,6 +6,8 @@ import {AppSidebar} from "@/components/admin/appSidebar";
 import {CardDescription, CardTitle} from "@/components/ui/card";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link";
 
 const geistSans = localFont({
     src: "../fonts/GeistVF.woff",
@@ -49,12 +51,17 @@ export default function RootLayout({
             <SidebarProvider>
                 <AppSidebar/>
                 <main className="w-full">
-                    <div className="flex border-b pr-1">
+                    <div className="flex border-b py-2 pr-2 items-center">
                         <SidebarTrigger />
-                        <CardTitle className="text-center text-md font-semibold mx-auto">Dashboard</CardTitle>
+                        <CardTitle className="text-center text-md font-semibold mx-auto">{user.nama}</CardTitle>
                         <CardDescription>
                             {user && (
-                                <>{user.nama}</>
+                                <Link href="admin/profil/user-admin">
+                                    <Avatar className="ring-1 ring-red ring-offset-1">
+                                        <AvatarImage src={user.avatar} />
+                                        <AvatarFallback>{user.nama}</AvatarFallback>
+                                    </Avatar>
+                                </Link>
                             )}
                         </CardDescription>
                     </div>
