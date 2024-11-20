@@ -6,6 +6,7 @@ import {AlertCircle, CheckCircle, Printer, XCircle} from "lucide-react";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import formatDate from "@/lib/formatDate";
 import {Button} from "@/components/ui/button";
+import SkeletonTable from "@/components/ui/SkeletonTable";
 
 interface PPTPS {
     id: number;
@@ -116,10 +117,6 @@ export default function TabelPPTPS() {
         }
     }
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     if (error) {
         return (
             <Alert variant="destructive">
@@ -133,7 +130,7 @@ export default function TabelPPTPS() {
     return (
         <div className="container mx-auto">
             <div className="flex justify-between items-center mb-4 px-8">
-                <h2 className="text-2xl font-bold">Tabel Pendaftar PTPS</h2>
+                <h2 className="text-2xl font-bold">Data Pendaftaran PTPS</h2>
                 <Button
                     onClick={handlePrint}
                     size='sm'
@@ -155,37 +152,41 @@ export default function TabelPPTPS() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {pptpsData.map((pptps) => (
-                        <TableRow key={pptps.id}>
-                            <TableCell>{pptps.namaLengkap}</TableCell>
-                            <TableCell>{pptps.nik}</TableCell>
-                            <TableCell>{pptps.tempatLahir}</TableCell>
-                            <TableCell>{formatDate(pptps.TanggaLahir)}</TableCell>
-                            <TableCell>{pptps.status}</TableCell>
-                            <TableCell>
-                                <div className="flex space-x-2">
-                                    <Button
-                                        size='sm'
-                                        onClick={() => handleStatusChange(pptps.id, 'accepted')}
-                                        disabled={pptps.status !== 'PENDING'}
-                                        className="bg-green-500 text-white hover:bg-green-600 font-semibold"
-                                    >
-                                        <CheckCircle className="h-4 w-4"/>
-                                        {" "}Acc
-                                    </Button>
-                                    <Button
-                                        size='sm'
-                                        onClick={() => handleStatusChange(pptps.id, 'rejected')}
-                                        disabled={pptps.status !== 'PENDING'}
-                                        variant='destructive'
-                                    >
-                                        <XCircle className="h-4 w-4 font-semibold"/>
-                                        {" "}Reject
-                                    </Button>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                    {loading ? (
+                        <SkeletonTable columns={6} rows={6} cellWidths={['80%', '80%', '80%', '80%', '80%', '80%']}/>
+                    ) : (
+                        pptpsData.map((pptps) => (
+                            <TableRow key={pptps.id}>
+                                <TableCell>{pptps.namaLengkap}</TableCell>
+                                <TableCell>{pptps.nik}</TableCell>
+                                <TableCell>{pptps.tempatLahir}</TableCell>
+                                <TableCell>{formatDate(pptps.TanggaLahir)}</TableCell>
+                                <TableCell>{pptps.status}</TableCell>
+                                <TableCell>
+                                    <div className="flex space-x-2">
+                                        <Button
+                                            size='sm'
+                                            onClick={() => handleStatusChange(pptps.id, 'accepted')}
+                                            disabled={pptps.status !== 'PENDING'}
+                                            className="bg-green-500 text-white hover:bg-green-600 font-semibold"
+                                        >
+                                            <CheckCircle className="h-4 w-4"/>
+                                            {" "}Acc
+                                        </Button>
+                                        <Button
+                                            size='sm'
+                                            onClick={() => handleStatusChange(pptps.id, 'rejected')}
+                                            disabled={pptps.status !== 'PENDING'}
+                                            variant='destructive'
+                                        >
+                                            <XCircle className="h-4 w-4 font-semibold"/>
+                                            {" "}Reject
+                                        </Button>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    )}
                 </TableBody>
             </Table>
         </div>

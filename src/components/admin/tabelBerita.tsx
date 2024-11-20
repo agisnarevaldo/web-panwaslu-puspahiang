@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import {useState, useEffect} from 'react'
+import {useRouter} from 'next/navigation'
 import {
     Table,
     TableBody,
@@ -10,7 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -22,8 +22,9 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Pencil, Trash2 } from "lucide-react"
+import {Pencil, Trash2} from "lucide-react"
 import formatDate from "@/lib/formatDate";
+import SkeletonTable from "@/components/ui/SkeletonTable";
 
 interface NewsItem {
     id: string
@@ -37,6 +38,7 @@ export default function TabelBerita() {
     const [news, setNews] = useState<NewsItem[]>([])
     const router = useRouter()
     const [error, setError] = useState<string | null>(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         fetchNews()
@@ -48,6 +50,7 @@ export default function TabelBerita() {
             if (response.ok) {
                 const data = await response.json()
                 setNews(data.data)
+                setLoading(false)
                 console.log('Fetched news:', data)
             } else {
                 console.error('Failed to fetch news')
@@ -82,8 +85,16 @@ export default function TabelBerita() {
         }
     }
 
+    if (error) {
+        return (
+            <div className="container mx-auto py-10">
+                <p className="text-red-600">{error}</p>
+            </div>
+        )
+    }
+
     return (
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto py-4">
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -94,41 +105,49 @@ export default function TabelBerita() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {news.map((item) => (
-                        <TableRow key={item.id}>
-                            <TableCell>{item.judul}</TableCell>
-                            <TableCell>{item.author || 'Tidak Diketahui'}</TableCell>
-                            <TableCell>{formatDate(item.tglDibuat)}</TableCell>
-                            <TableCell>
-                                <div className="flex space-x-2">
-                                    <Button variant="outline" size="sm" onClick={() => handleEdit(item.id)}>
-                                        <Pencil className="h-4 w-4" />
-                                    </Button>
-                                    <AlertDialog>
-                                        <AlertDialogTrigger asChild>
-                                            <Button variant="outline" size="sm">
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </AlertDialogTrigger>
-                                        <AlertDialogContent>
-                                            <AlertDialogHeader>
-                                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                                <AlertDialogDescription>
-                                                    This action cannot be undone. This will permanently delete the news article.
-                                                </AlertDialogDescription>
-                                            </AlertDialogHeader>
-                                            <AlertDialogFooter>
-                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                <AlertDialogAction onClick={() => handleDelete(item.id)}>
-                                                    Delete
-                                                </AlertDialogAction>
-                                            </AlertDialogFooter>
-                                        </AlertDialogContent>
-                                    </AlertDialog>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                    {loading ? (
+                        <SkeletonTable
+                            columns={4}
+                            rows={4}
+                            cellWidths={['100%', '20%', '20%', '20%']}
+                        />
+                    ) : (
+                        news.map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCell>{item.judul}</TableCell>
+                                <TableCell>{item.author || 'Tidak Diketahui'}</TableCell>
+                                <TableCell>{formatDate(item.tglDibuat)}</TableCell>
+                                <TableCell>
+                                    <div className="flex space-x-2">
+                                        <Button variant="outline" size="sm" onClick={() => handleEdit(item.id)}>
+                                            <Pencil className="h-4 w-4"/>
+                                        </Button>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                                <Button variant="outline" size="sm">
+                                                    <Trash2 className="h-4 w-4"/>
+                                                </Button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Apa anda benar-benar yakin?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        Tindakan ini tidak dapat dibatalkan. Tindakan ini akan secara permanen menghapus data dari server kami.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={() => handleDelete(item.id)}>
+                                                        Delete
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    )}
                 </TableBody>
             </Table>
         </div>

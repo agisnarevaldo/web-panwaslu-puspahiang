@@ -2,23 +2,21 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-    const currentUser = request.cookies.get('user')?.value
+    const userCookie = request.cookies.get('user')?.value
 
-    if (request.nextUrl.pathname.startsWith('/admin')) {
-        if (!currentUser) {
-            return NextResponse.redirect(new URL('/login', request.url))
-        }
-        try {
-            JSON.parse(currentUser)
-        } catch {
-            // If the user cookie is invalid, clear it and redirect to login
-            const response = NextResponse.redirect(new URL('/login', request.url))
-            response.cookies.delete('user')
-            return response
-        }
+    if (!userCookie) {
+        return NextResponse.redirect(new URL('/login', request.url))
     }
 
-    return NextResponse.next()
+    try {
+        JSON.parse(userCookie) // Validate that the cookie contains valid JSON
+        return NextResponse.next()
+    } catch (error) {
+        console.error('User cookie parsing failed:', error)
+        const response = NextResponse.redirect(new URL('/login', request.url))
+        response.cookies.delete('user')
+        return response
+    }
 }
 
 export const config = {

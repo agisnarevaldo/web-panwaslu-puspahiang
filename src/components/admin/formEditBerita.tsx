@@ -144,10 +144,10 @@ export default function FormEditBerita({id}: {id: string}) {
                         {loading ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Updating...
+                                Memperaui Data...
                             </>
                         ) : (
-                            'Update News'
+                            'Simpan Perubahan'
                         )}
                     </Button>
                 </CardFooter>

@@ -17,6 +17,7 @@ export default async function Page ({params} :{ params: { slug: string} }) {
                 date={berita.tglDibuat}
                 author={berita.author}
                 content={berita.isi}
+                backUrl={'/berita'}
             />
         </main>
     );

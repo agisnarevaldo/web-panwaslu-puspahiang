@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertCircle, Loader2 } from "lucide-react"
+import {AlertCircle, Loader2, Upload} from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function FormPostBerita() {
@@ -77,7 +77,7 @@ export default function FormPostBerita() {
     return (
         <Card className="w-full max-w-2xl mx-auto">
             <CardHeader>
-                <CardTitle>Post News</CardTitle>
+                <CardTitle>Posting Berita</CardTitle>
             </CardHeader>
             <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-4">
@@ -91,7 +91,7 @@ export default function FormPostBerita() {
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="gambar">gambar</Label>
+                        <Label htmlFor="gambar">Gambar</Label>
                         <Input
                             id="gambar"
                             type="file"
@@ -100,7 +100,7 @@ export default function FormPostBerita() {
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="isi">Content</Label>
+                        <Label htmlFor="isi">Kontent / Isi</Label>
                         <Textarea
                             id="isi"
                             value={isi}
@@ -116,6 +116,7 @@ export default function FormPostBerita() {
                             value={author}
                             onChange={(e) => setAuthor(e.target.value)}
                             placeholder="Penulis (optional)"
+                            required
                         />
                     </div>
                     {error && (
@@ -134,8 +135,9 @@ export default function FormPostBerita() {
                                 Posting...
                             </>
                         ) : (
-                            'Post News'
+                            'Posting'
                         )}
+                        <Upload className="h-4 w-4"/>
                     </Button>
                 </CardFooter>
             </form>
