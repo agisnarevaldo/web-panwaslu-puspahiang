@@ -1,36 +1,23 @@
-"use client";
-
-import Section from "@/components/layout/section";
 import {useEffect, useState} from "react";
+import Section from "@/components/layout/section";
 import CardBerita from "@/components/ui/cardBerita";
+import Button from "@/components/ui/buttonPrimary";
 
 export default function SectionTopBerita() {
     const [berita, setBerita] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await fetch('/api/berita');
-                const data = await res.json();
+        const fetchData = async () => {
+            const res = await fetch('/api/berita');
+            const data = await res.json();
+            setBerita(data.data.slice(0, 3));
+        };
 
-                // Periksa apakah data.data adalah array
-                if (Array.isArray(data.data)) {
-                    setBerita(data.data);
-                    console.log('Data berita:', data.data);
-                } else {
-                    // Handle error, misalnya:
-                    console.error('Data berita tidak valid:', data);
-                    setBerita([]); // Atau tampilkan pesan error di UI
-                }
-            } catch (error) {
-                console.error('Terjadi kesalahan:', error);
-                setBerita([]); // Atau tampilkan pesan error di UI
-            }
-        }
         fetchData();
     }, []);
+
     return (
-        <Section title="Berita Terbaru" description="Berita terbaru seputar pemilu 2024">
+        <Section title="Berita Terbaru" description="Berita terbaru dari Panwaslu Kecamatan Puspahiang">
             <div className="flex flex-wrap justify-between">
                 {berita.map((item: {
                     id: string;
@@ -53,6 +40,11 @@ export default function SectionTopBerita() {
                     />
                 ))}
             </div>
+            <Button
+                txt="Lihat selengkapnya"
+                href="/berita"
+                classname="w-max mx-auto mt-4"
+            />
         </Section>
     )
 }

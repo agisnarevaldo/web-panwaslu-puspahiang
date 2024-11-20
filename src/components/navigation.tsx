@@ -1,4 +1,3 @@
-import ButtonMode from "./btnMode";
 import Logo from "./logo";
 import NavLink from "./navLink";
 
@@ -10,18 +9,22 @@ export default function Navbar() {
         <NavLink href="/" icon="teenyicons:home-outline" text="Beranda" />
         <NavLink href="/profil" icon="bi:info-circle" text="Profil" />
         <NavLink href="/berita" icon="streamline:news-paper" text="Berita" />
-        <NavLink
-          href="/agenda"
-          icon="material-symbols:timeline"
-          text="Agenda"
-        />
+        {/*<NavLink*/}
+        {/*  href="/agenda"*/}
+        {/*  icon="material-symbols:timeline"*/}
+        {/*  text="Agenda"*/}
+        {/*/>*/}
         <NavLink
           href="/pengumuman"
           icon="carbon:notification"
           text="Pengumuman"
         />
 
-        <ButtonMode />
+        <NavLink
+            href="/login"
+            icon="carbon:user-avatar-filled"
+            text="Login"
+        />
       </div>
     </nav>
   );

@@ -24,3 +24,62 @@ model Berita {
 
   @@map("berita")
 }
+
+model User {
+  id       Int     @id @default(autoincrement())
+  username String  @unique @db.VarChar(255)
+  password String  @db.VarChar(255)
+  nama     String  @db.VarChar(255)
+  avatar   String? @db.VarChar(255)
+
+  @@map("user")
+}
+
+model PPTPS {
+  id                 Int       @id @default(autoincrement())
+  namaLengkap        String    @db.VarChar(255)
+  nik                String    @unique @db.VarChar(30)
+  tempatLahir        String?   @db.VarChar(100)
+  TanggaLahir        DateTime? @db.DateTime
+  jenisKelamin       String?   @db.VarChar(10)
+  alamat             String?   @db.Text
+  pendidikanTerakhir String?   @db.VarChar(100)
+  noTelp             String?   @db.VarChar(20)
+  email              String?   @unique @db.VarChar(100)
+  pekerjaan          String?   @db.VarChar(100)
+  suratPendaftaran   String?   @db.VarChar(255) //file
+  ktp                String?   @db.VarChar(255) //file
+  ijazah             String?   @db.VarChar(255) //file
+  daftarRiwayatHidup String?   @db.VarChar(255) //file
+  suratPernyataan    String?   @db.VarChar(255) //file
+  status             String?   @default("PENDING") @db.VarChar(20)
+
+  @@map("pptps")
+}
+
+model Pengumuman {
+  id        Int      @id @default(autoincrement())
+  judul     String   @db.VarChar(255)
+  isi       String   @db.Text
+  tglDibuat DateTime @default(now())
+  author    String   @db.VarChar(255)
+  slug      String   @unique @db.VarChar(255)
+  lampiran  String   @db.VarChar(255)
+
+  @@map("pengumuman")
+}
+
+model Anggota {
+  id      String  @id @default(uuid())
+  nama    String  @db.VarChar(255)
+  jabatan String  @db.VarChar(255)
+  periode String  @db.VarChar(255)
+  alamat  String  @db.Text
+  noTelp  String? @db.VarChar(20)
+  email   String? @unique @db.VarChar(100)
+  divisi  String? @db.VarChar(255)
+  status  String? @db.VarChar(255)
+  photo   String? @db.VarChar(255)
+
+  @@map("anggota")
+}

@@ -9,7 +9,20 @@ const prisma = new PrismaClient();
 export async function GET() {
     try {
         // get all data berita
-        const berita = await prisma.berita.findMany();
+        const berita = await prisma.berita.findMany({
+            select: {
+                id: true,
+                judul: true,
+                isi: true,
+                author: true,
+                tglDibuat: true,
+                gambar: true,
+                slug: true,
+            },
+            orderBy: {
+                tglDibuat: "desc",
+            }
+        });
 
         // return response JSON
         return NextResponse.json(
@@ -51,12 +64,6 @@ async function createSlug(title: string) {
     }
     return slug;
 }
-// function createSlug(title: string) {
-//     return title
-//         .toLowerCase()
-//         .replace(/[^a-z0-9]+/g, '-')
-//         .replace(/^-+|-+$/g, '');
-// }
 
 export async function POST(req: NextRequest) {
     const formData = await req.formData();
@@ -65,7 +72,7 @@ export async function POST(req: NextRequest) {
     const isi = formData.get("isi") as string || "";
     const gambar = formData.get("gambar") as File || null;
     const author = formData.get("author") as string || "";
-    const tglDibuat = formData.get("tglDibuat");
+    // const tglDibuat = formData.get("tglDibuat");
     const slug = await createSlug(judul);
 
     const buffer = Buffer.from(await gambar.arrayBuffer());
@@ -111,8 +118,8 @@ export async function POST(req: NextRequest) {
                 judul: judul,
                 isi: isi,
                 gambar: fileUrl,
-                author: author,
-                tglDibuat: new Date(tglDibuat as string),
+                author: author || "Penulis",
+                tglDibuat: new Date(),
                 slug: slug,
             }
         });
